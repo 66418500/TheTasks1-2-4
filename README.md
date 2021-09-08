@@ -1,5 +1,10 @@
 # docker && ansible tasks
-# 1.The Task 4. Docker and a bit of Dev
+
+# 1.Task 1. Scripting language
+* It's in another REPO https://github.com/66418500/66418500.github.io/tree/blog
+* I used python shell and Github Action(automated build publish).
+# 2.Task 2. Configuration management
+# 3.Task 4. Docker and a bit of Dev
 * The API directory contains a DockerFile, a simple Web service for the GO language Gin framework.
 # Use it
 ```
@@ -11,6 +16,3 @@ docker run -it -d -p 8080:8080 go-example
 curl localhost:8080/ping
 {"message":"pong"}
 ```
-
-# 2.Task 2. Configuration management
-
