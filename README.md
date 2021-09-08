@@ -5,4 +5,6 @@
 cd api
 docker build -t go-example .
 docker run -it -d -p 8080:8080 $IMAGEID
+curl localhost:8080/ping
+{"message":"pong"}
 ```
