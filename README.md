@@ -1,5 +1,3 @@
-# docker && ansible tasks
-
 # 1.Task 1. Scripting language
 * It's in another REPO https://github.com/66418500/66418500.github.io/tree/blog
 * I used python shell and Github Action(automated build publish).
