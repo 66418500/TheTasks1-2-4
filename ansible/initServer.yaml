@@ -1,0 +1,130 @@
+---
+- name: Configure ssh Connection
+  hosts: node
+  gather_facts: false
+  connection: local
+  tasks:
+    - name: configure ssh connection
+      shell: |
+        ssh-keyscan {{inventory_hostname}} >>~/.ssh/known_hosts
+        sshpass -p'yourpassword' ssh-copy-id lighthouse@{{inventory_hostname}}
+
+- name: Config Yum Repo And Install Software
+  hosts: node
+  gather_facts: false
+  tasks: 
+    - name: backup origin yum repos
+      shell: 
+        cmd: "mkdir bak; mv *.repo bak"
+        chdir: /etc/yum.repos.d
+        creates: /etc/yum.repos.d/bak
+
+    - name: add os repo and epel repo
+      yum_repository: 
+        name: "{{item.name}}"
+        description: "{{item.name}} repo"
+        baseurl: "{{item.baseurl}}"
+        file: "{{item.name}}"
+        enabled: 1
+        gpgcheck: 0
+        reposdir: /etc/yum.repos.d
+      loop:
+        - name: os
+          baseurl: "https://mirrors.tuna.tsinghua.edu.cn/centos/7/os/$basearch"
+        - name: epel
+          baseurl: "https://mirrors.tuna.tsinghua.edu.cn/epel/7/$basearch"
+
+    - name: install pkgs
+      yum: 
+        name: lrzsz,vim,dos2unix,wget,curl
+        state: present
+
+- name: Sync Time
+  hosts: node
+  gather_facts: false
+  tasks: 
+    - name: install and sync time
+      block: 
+        - name: install ntpdate
+          yum: 
+            name: ntpdate
+            state: present
+
+        - name: ntpdate to sync time
+          shell: |
+            ntpdate ntp1.aliyun.com
+            hwclock -w
+
+- name: Disable Selinux
+  hosts: node
+  gather_facts: false
+  tasks: 
+    - block: 
+        - name: disable on the fly
+          shell: setenforce 0
+
+        - name: disable forever in config
+          lineinfile: 
+            path: /etc/selinux/config
+            line: "SELINUX=disabled"
+            regexp: '^SELINUX='
+      ignore_errors: true
+
+- name: Set Firewall
+  hosts: node
+  gather_facts: false
+  tasks: 
+    - name: set iptables rule
+      shell: |
+        # Backing up existing rules
+        iptables-save > /tmp/iptables.bak$(date +"%F-%T")
+        # empty rules
+        iptables -X
+        iptables -F
+        iptables -Z
+
+        # pass lo and ping
+        iptables -A INPUT -i lo -j ACCEPT
+        iptables -A INPUT -p icmp -j ACCEPT
+
+        # pass the Connection established and 22 443 80 port 
+        iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+        iptables -A INPUT -p tcp -m tcp --dport 22 -j ACCEPT
+        iptables -A INPUT -p tcp -m tcp --dport 443 -j ACCEPT
+        iptables -A INPUT -p tcp -m tcp --dport 80 -j ACCEPT
+
+        # Configuring default Rules
+        iptables -P INPUT DROP
+        iptables -P FORWARD DROP
+        iptables -P OUTPUT ACCEPT
+
+- name: Modify sshd_config
+  hosts: node
+  gather_facts: false
+  tasks:
+    - name: backup sshd config
+      shell: 
+        /usr/bin/cp -f {{path}} {{path}}.bak
+      vars: 
+        - path: /etc/ssh/sshd_config
+
+    - name: disable root login
+      lineinfile: 
+        path: "/etc/ssh/sshd_config"
+        line: "PermitRootLogin no"
+        insertafter: "^#PermitRootLogin"
+        regexp: "^PermitRootLogin"
+      notify: "restart sshd"
+
+    - name: disable password auth
+      lineinfile: 
+        path: "/etc/ssh/sshd_config"
+        line: "PasswordAuthentication no"
+        regexp: "^PasswordAuthentication yes"
+      notify: "restart sshd"
+
+  handlers: 
+    - name: "restart sshd"
+      service: 
+        name: sshd
+        state: restarted
