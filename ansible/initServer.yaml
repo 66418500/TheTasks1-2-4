@@ -12,6 +12,7 @@
 - name: Config Yum Repo And Install Software
   hosts: node
   gather_facts: false
+  become: yes
   tasks: 
     - name: backup origin yum repos
       shell: 
@@ -36,12 +37,15 @@
           
     - name: install pkgs
       yum: 
-        name: lrzsz,vim,dos2unix,wget,curl,python-docker
+        name: lrzsz,vim,dos2unix,wget,curl
         state: present
+      vars:
+        ansible_python_interpreter: /usr/bin/python
 
 - name: Sync Time
   hosts: node
   gather_facts: false
+  become: yes
   tasks: 
     - name: install and sync time
       block: 
@@ -49,6 +53,8 @@
           yum: 
             name: ntpdate
             state: present
+          vars:
+            ansible_python_interpreter: /usr/bin/python
 
         - name: ntpdate to sync time
           shell: |
@@ -58,6 +64,7 @@
 - name: Disable Selinux
   hosts: node
   gather_facts: false
+  become: yes
   tasks: 
     - block: 
         - name: disable on the fly
@@ -73,6 +80,7 @@
 - name: Set Firewall
   hosts: node
   gather_facts: false
+  become: yes
   tasks: 
     - name: set iptables rule
       shell: |
@@ -101,6 +109,7 @@
 - name: Modify sshd_config
   hosts: node
   gather_facts: false
+  become: yes
   tasks:
     - name: backup sshd config
       shell: 
