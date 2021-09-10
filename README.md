@@ -6,13 +6,4 @@
 # 3.Task 4. Docker and a bit of Dev
 * api directory contains a DockerFile, a simple Web service for the GO language and Gin framework.
 * https://github.com/66418500/TheTasks1-2-4/tree/master/api
-* Use it
-```
-cd api
-docker build -t go-example .
-docker run -it -d -p 8080:8080 go-example
 
-#test
-curl localhost:8080/ping
-{"message":"pong"}
-```
