@@ -1,0 +1,67 @@
+---
+- name: Docker dependencies install
+  hosts: node
+  become: yes
+  gather_facts: false
+  tasks: 
+    - name: backup repos
+      shell: 
+        cmd: "cp *.repo bak"
+        chdir: /etc/yum.repos.d
+
+    - name: add repo
+      yum_repository: 
+        name: "{{item.name}}"
+        description: "{{item.name}} repo"
+        baseurl: "{{item.baseurl}}"
+        file: "{{item.name}}"
+        enabled: 1
+        gpgcheck: 0
+        reposdir: /etc/yum.repos.d
+      loop:
+        - name: CentosExtras 
+          baseurl: "http://mirror.centos.org/centos/7/extras/x86_64"
+    
+    - name: Install dependencies
+      yum: 
+        name: slirp4netns,fuse-overlayfs,container-selinux
+        state: present
+
+- name: install docker-ce
+  hosts: node
+  gather_facts: true
+  become: yes
+  vars:
+    docker_repo_url: https://mirrors.aliyun.com/docker-ce/linux
+    docker_install_compose: false
+  roles:
+    - geerlingguy.docker
+
+- name: login to the private repo
+  hosts: node
+  gather_facts: false
+  become: yes
+  tasks:
+  - name: install pkgs
+    shell: pip3 install python-docker
+
+  - name: login to the private repo
+    docker_login:
+      registry: https://registry.wiredcraft.cn
+      username: myusername
+      password: mypassword
+      reauthorize: yes
+
+  - name: pull my docker image
+    docker_image:
+      name: /wcl/api
+      tag: latest
+      source: pull  
+
+  - name: Start a container
+    docker_container:
+      image: registry.wiredcraft.cn/wcl/api:latest
+      name: myapi
+      state: started
+      ports:
+        - 3000:3000

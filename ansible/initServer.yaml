@@ -33,10 +33,10 @@
           baseurl: "https://mirrors.tuna.tsinghua.edu.cn/centos/7/os/$basearch"
         - name: epel
           baseurl: "https://mirrors.tuna.tsinghua.edu.cn/epel/7/$basearch"
-
+          
     - name: install pkgs
       yum: 
-        name: lrzsz,vim,dos2unix,wget,curl
+        name: lrzsz,vim,dos2unix,wget,curl,python-docker
         state: present
 
 - name: Sync Time

@@ -1,0 +1,25 @@
+---
+- name: backup mysql
+  hosts: node 
+  gather_facts: false
+  become: yes
+  vars:
+    - exclude_db:
+      - "Database"
+      - "information_schema"
+      - "performance_schema"
+      - "mysql"
+  vars_files:
+    - vars/main.yml
+  tasks:
+    - name: get db names
+      shell: 'mysql -u root -p{{ mysql_root_password }} -e "show databases;" '
+      register: dblist
+    - name: backup databases
+      mysql_db:
+        state: dump
+        name: "{{ item }}"
+        target: "/tmp/{{ item }}.sql"
+        login_user: root
+        login_password: "{{ mysql_root_password }}"
+      with_items: "{{ dblist.stdout_lines | difference(exclude_db) }}"
