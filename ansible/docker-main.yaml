@@ -54,7 +54,7 @@
 
   - name: pull my docker image
     docker_image:
-      name: /wcl/api
+      name: wcl/api
       tag: latest
       source: pull  
 
