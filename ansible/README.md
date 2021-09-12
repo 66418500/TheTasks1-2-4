@@ -30,5 +30,10 @@
 * ansible-playbook nginx-main.yml
 * ansible-playbook bak-mysql.yml  #You need to create a new database first, otherwise the backup list is empty.
 
+# About the backup
+* Scenario 1: Use crontab to back up data on the server.
+* In scenario 2, pull the backup locally via playBook.
+* In solution 3, upload the backup file to the cloud platform based on Solution 1.
+* Usually, multiple backup schemes are required to ensure reliable backup. This is just an example of a local server backup.
 # About Test
 * I have a Tencent Cloud server that can reload the system unlimited times to test the reliability of Ansible-Playbook. In practice, I would do the same with the actual test (using the same system environment as the customer) to ensure the reliability of the results.
