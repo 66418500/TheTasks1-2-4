@@ -10,7 +10,7 @@
       - "performance_schema"
       - "mysql"
   vars_files:
-    - vars/main.yml
+    - vars/main.yml #The password
   tasks:
     - name: get db names
       shell: 'mysql -u root -p{{ mysql_root_password }} -e "show databases;" '
