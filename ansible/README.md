@@ -6,7 +6,6 @@
 - name: Configure ssh Connection
   hosts: node
   gather_facts: false
-  connection: local
   tasks:
     - name: configure ssh connection
       shell: |
