@@ -17,7 +17,7 @@
  #If it is centos
  yum install ansible
  ```
-* Configure host groups and non-root user in the hosts file in the ansible configuration file directory (usually in /etc/ansible/hosts). I use Node as a group
+* Configure host groups and non-root user in the hosts file in the ansible configuration file directory (usually in /etc/ansible/hosts). I use Node as a group and a non-root user as ansible_user
 
 # Install the service using Ansible-Galaxy 
 * ansible-galaxy  install geerlingguy.docker
