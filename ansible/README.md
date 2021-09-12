@@ -1,6 +1,10 @@
 # First of all
-* You need to configure the non-root user on the server and enter the password in the first task of the initserver. yaml file. Then use the public key to log in directly.
+* You need to configure the non-root user on the target server and enter the password in the first task of the initServer.yaml file. Then use the public key to log in directly.
 * Install ansible and confirm the existence of the ansible-playbook and ansible-galaxy commands
+ ```
+ #If it is centos
+ yum install ansible
+ ```
 * Configure host groups and non-root user in the hosts file in the ansible configuration file directory (usually in /etc/ansible/hosts). I use Node as a group
 
 # Install the service using Ansible-Galaxy 
