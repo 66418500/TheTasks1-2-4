@@ -6,3 +6,4 @@ docker run -it -d -p 8080:8080 go-example
 curl localhost:8080/ping
 {"message":"pong"}
 ```
+* The GIN framework uses official examples
