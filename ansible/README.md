@@ -13,11 +13,12 @@
         sshpass -p'yourpassword' ssh-copy-id yourNon-rootUser@{{inventory_hostname}}
 ```
 * Install ansible and confirm the existence of the ansible-playbook and ansible-galaxy commands
- ```
+* Guide through official documents  https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html
+```
  #If it is centos  
- #Guide through official documents  https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html
  yum install ansible
  ```
+
 * Configure host groups and non-root user in the hosts file in the ansible configuration file directory (usually in /etc/ansible/hosts). I use Node as a group and a non-root user as remote_user.
 
 # Install the service using Ansible-Galaxy 
