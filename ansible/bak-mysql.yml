@@ -13,7 +13,7 @@
     - vars/main.yml #The password
   tasks:
     - name: get db names
-      shell: 'mysql -u root -p{{ mysql_root_password }} -e "show databases;" '  #Corresponds to the variable name defined in vars/main.yml
+      shell: 'mysql -u root -p{{ mysql_root_password }} -e "show databases;" '  #The 'mysql_root_password' corresponds to the variable name defined in vars/main.yml
       register: dblist
     - name: backup databases
       mysql_db:
