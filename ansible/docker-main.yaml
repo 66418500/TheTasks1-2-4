@@ -11,7 +11,7 @@
 
     - name: add repo
       yum_repository: 
-        name: "{{item.name}}"
+        name: "{{item.name}}"   #The loop is used here because it's easier to adjust if you have multiple urls to add
         description: "{{item.name}} repo"
         baseurl: "{{item.baseurl}}"
         file: "{{item.name}}"
@@ -31,9 +31,9 @@
   hosts: node
   gather_facts: true
   become: yes
-  vars:
-    docker_repo_url: https://mirrors.aliyun.com/docker-ce/linux
-    docker_install_compose: false
+  vars: 
+    docker_repo_url: https://mirrors.aliyun.com/docker-ce/linux  #Here Docker is installed using Ansible-Galaxy, replacing the original Baseurl with a Chinese image
+    docker_install_compose: false #Do not install Docker-compose if you need, just remove this line
   roles:
     - geerlingguy.docker
 
@@ -43,7 +43,7 @@
   become: yes
   tasks:
   - name: install pkgs
-    shell: pip3 install docker-py && pip3 install docker && yum install python-docker
+    shell: pip3 install docker-py && pip3 install docker && yum install python-docker  #Required by ansible's docker_login module
 
   - name: login to the private repo
     docker_login:
