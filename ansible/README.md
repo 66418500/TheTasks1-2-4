@@ -1,5 +1,17 @@
 # First of all
 * You need to configure the non-root user on the target server and enter the password in the first task of the initServer.yaml file. Then use the public key to log in directly.
+```
+---
+- name: Configure ssh Connection
+  hosts: node
+  gather_facts: false
+  connection: local
+  tasks:
+    - name: configure ssh connection
+      shell: |
+        ssh-keyscan {{inventory_hostname}} >>~/.ssh/known_hosts
+        sshpass -p'yourpassword' ssh-copy-id lighthouse@{{inventory_hostname}}
+```
 * Install ansible and confirm the existence of the ansible-playbook and ansible-galaxy commands
  ```
  #If it is centos
