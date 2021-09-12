@@ -1,5 +1,6 @@
 # First of all
 * You need to configure the non-root user on the target server and enter the password in the first task of the initServer.yaml file. Then use the public key to log in directly.
+* I turned off the Gather_facts module for all tasks to save resources.
 ```
 ---
 - name: Configure ssh Connection
