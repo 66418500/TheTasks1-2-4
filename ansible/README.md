@@ -7,3 +7,6 @@
 
 # Use ansible-playbook
 * ansible-playbook xxx.yml
+
+# About Test
+* I have a Tencent Cloud server that can reload the system unlimited times to test the reliability of Ansible-Playbook. In practice, I would do the same with the actual test (using the same system environment as the customer) to ensure the reliability of the results.
