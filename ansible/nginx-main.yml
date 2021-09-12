@@ -9,7 +9,7 @@
         name: nginx
         state: present
     
-    - name: configure nginx proxy 3000 port
+    - name: configure nginx proxy 3000 port #Replace with a local configuration file
       copy:
         src: config/nginx.conf
         dest: /etc/nginx/nginx.conf
