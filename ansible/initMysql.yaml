@@ -1,8 +1,7 @@
 ---
-- hosts: db-mysql
-  hosts: node
+- hosts: node
   become: yes
-  vars_files:
-    - vars/main.yml
+  vars_files: #Define root password
+    - vars/main.yml 
   roles:
     - { role: geerlingguy.mysql }
