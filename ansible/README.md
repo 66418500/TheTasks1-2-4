@@ -21,7 +21,7 @@
 
 # Install the service using Ansible-Galaxy 
 ```
-ansible-galaxy  install geerlingguy.docker
+ansible-galaxy install geerlingguy.docker
 ansible-galaxy install geerlingguy.mysql
 ```
 
