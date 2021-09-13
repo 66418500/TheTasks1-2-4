@@ -28,7 +28,7 @@
 ansible_user=lighthouse
 ```
 
-# Install the service using Ansible-Galaxy 
+# Install the service templates using Ansible-Galaxy 
 ```
 ansible-galaxy install geerlingguy.docker
 ansible-galaxy install geerlingguy.mysql
