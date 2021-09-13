@@ -34,7 +34,7 @@ ansible-galaxy install geerlingguy.docker
 ansible-galaxy install geerlingguy.mysql
 ```
 
-# Then use ansible-palyBook to execute them sequentially
+# Then use ansible-playbook to execute them sequentially
 ```
 ansible-playbook initServer.yaml
 ansible-playbook initMysql.yaml
