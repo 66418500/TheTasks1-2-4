@@ -20,6 +20,14 @@
  ```
 
 * Configure host groups and non-root user in the hosts file in the ansible configuration file directory (usually in /etc/ansible/hosts). I use Node as a group and a non-root user as remote_user.
+```
+#This is my configuration
+[node]
+1.14.49.95
+# Ex 2: A collection of hosts belonging to the 'webservers' group
+[node:vars]
+ansible_user=lighthouse
+```
 
 # Install the service using Ansible-Galaxy 
 ```
