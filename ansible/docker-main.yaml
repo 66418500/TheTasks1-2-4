@@ -42,9 +42,11 @@
   gather_facts: false
   become: yes
   tasks:
-  - name: install pkgs
-    shell: pip3 install docker-py && pip3 install docker   #Required by ansible's docker_login module
-
+  - name: install docker_login module dependencies
+    yum:
+      name: python-docker
+      state: present
+  
   - name: login to the private repo
     docker_login:
       registry: https://registry.wiredcraft.cn
