@@ -44,8 +44,7 @@ ansible-playbook initServer.yaml
 ansible-playbook initMysql.yaml
 ansible-playbook docker-main.yaml
 ansible-playbook nginx-main.yml
-ansible-playbook bak-mysql.yml  #You need to create a new database first, otherwise the backup list is empty.
-```
+ansible-playbook bak-mysql.yml  
 
 # About the backup
 * Scenario 1: Use crontab to back up data on the server.
