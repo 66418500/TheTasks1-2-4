@@ -27,7 +27,6 @@
 #This is my configuration
 [node]
 192.168.1.1
-
 [node:vars]
 ansible_user=lighthouse
 ```
