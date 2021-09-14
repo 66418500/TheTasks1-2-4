@@ -9,7 +9,11 @@
     - name: configure ssh connection
       shell: |
         ssh-keyscan {{inventory_hostname}} >>~/.ssh/known_hosts
+<<<<<<< HEAD
         sshpass -p'{{server_password}}' ssh-copy-id lighthouse@{{inventory_hostname}}
+=======
+        sshpass -p'xxxx' ssh-copy-id lighthouse@{{inventory_hostname}}
+>>>>>>> 510ec711bc933d6427b879dcd4b0c53e4a1acba4
 
 - name: Config Yum Repo And Install Software
   hosts: node
