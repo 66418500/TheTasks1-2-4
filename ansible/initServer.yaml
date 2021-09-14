@@ -14,9 +14,14 @@
   gather_facts: false
   become: yes
   tasks: 
-    - name: backup origin yum repos
+    - name: create backup dir
+      file:
+        path: /etc/yum.repos.d/bak
+        state: directory
+
+    - name: bakcup origin yum repose
       shell: 
-        cmd: "mkdir bak; mv *.repo bak"
+        cmd: "mv *.repo bak"
         chdir: /etc/yum.repos.d
         creates: /etc/yum.repos.d/bak
 
