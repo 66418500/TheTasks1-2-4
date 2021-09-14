@@ -26,7 +26,8 @@
 ```
 #This is my configuration
 [node]
-1.14.49.95
+192.168.1.1
+
 [node:vars]
 ansible_user=lighthouse
 ```
