@@ -2,11 +2,12 @@
 - name: Configure ssh Connection
   hosts: node
   gather_facts: false
+  connection: local
   tasks:
     - name: configure ssh connection
       shell: |
         ssh-keyscan {{inventory_hostname}} >>~/.ssh/known_hosts
-        sshpass -p'yourpassword' ssh-copy-id yourNon-rootUser@{{inventory_hostname}}
+        sshpass -p'gui.my.nan77' ssh-copy-id lighthouse@{{inventory_hostname}}
 
 - name: Config Yum Repo And Install Software
   hosts: node
