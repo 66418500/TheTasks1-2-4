@@ -1,20 +1,23 @@
 # First of all
-* You need to configure the non-root user on the target server and enter the password in the first task of the initServer.yaml file. Then use the public key to log in directly.
+* Replace it with your own password and user.
 * I turned off the Gather_facts module for all tasks to save resources.
 ```
 ---
 - name: Configure ssh Connection
   hosts: node
   gather_facts: false
+  connection: local
+  vars_files: #Define server password
+    - vars/server.yml
   tasks:
     - name: configure ssh connection
       shell: |
         ssh-keyscan {{inventory_hostname}} >>~/.ssh/known_hosts
-        sshpass -p'yourpassword' ssh-copy-id yourNon-rootUser@{{inventory_hostname}}
+        sshpass -p'{{server_password}}' ssh-copy-id yourNon-rootUser@{{inventory_hostname}}
 ```
 * Install ansible and confirm the existence of the ansible-playbook and ansible-galaxy commands
 * Guide through official documents  https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html
-```
+ ```
  #If it is centos  
  yum install ansible
  ```
@@ -23,7 +26,8 @@
 ```
 #This is my configuration
 [node]
-1.14.49.95
+192.168.1.1
+
 [node:vars]
 ansible_user=lighthouse
 ```
@@ -40,7 +44,7 @@ ansible-playbook initServer.yaml
 ansible-playbook initMysql.yaml
 ansible-playbook docker-main.yaml
 ansible-playbook nginx-main.yml
-ansible-playbook bak-mysql.yml  #You need to create a new database first, otherwise the backup list is empty.
+ansible-playbook bak-mysql.yml  
 ```
 
 # About the backup
