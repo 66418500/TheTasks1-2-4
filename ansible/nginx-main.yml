@@ -16,4 +16,4 @@
         mode: 0644
     
     - name: reload the nginx configuration
-      shell: nginx & nginx -t && nginx -s reload
+      shell: nginx -t && nginx -s reload
