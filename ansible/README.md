@@ -17,7 +17,7 @@
 ```
 * Install ansible and confirm the existence of the ansible-playbook and ansible-galaxy commands
 * Guide through official documents  https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html
-```
+ ```
  #If it is centos  
  yum install ansible
  ```
@@ -27,6 +27,7 @@
 #This is my configuration
 [node]
 192.168.1.1
+
 [node:vars]
 ansible_user=lighthouse
 ```
@@ -44,6 +45,7 @@ ansible-playbook initMysql.yaml
 ansible-playbook docker-main.yaml
 ansible-playbook nginx-main.yml
 ansible-playbook bak-mysql.yml  
+```
 
 # About the backup
 * Scenario 1: Use crontab to back up data on the server.
