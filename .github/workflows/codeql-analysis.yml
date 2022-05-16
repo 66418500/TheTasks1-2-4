@@ -45,4 +45,4 @@ jobs:
        run: echo "::set-output name=leak_level::$(grep 'CRITICAL' /tmp/scan_output.json |wc -l)"
      - name: Pass or fail
        run: |
-         if [[ ${{steps.leak_check.outputs.leak_level}} == 0 ]]; then exit 0; else echo "here are some CRITICAL secret leak , pls check the actions artifacts . (click Actions , then click your action task , then you can find the Artifacts.)" exit 1; fi
+         if [[ ${{steps.leak_check.outputs.leak_level}} == 0 ]]; then exit 0; else echo "here are some CRITICAL secret leak , pls check the actions artifacts . (click Actions , then click your action task , then you can find the Artifacts.)" && exit 1; fi
