@@ -42,7 +42,7 @@ jobs:
      
      - name: Exit actions if there were some critical secret leak
        id: leak_check
-       run: echo "::set-output name=leak_level::$((grep 'CRITICAL' /tmp/scan_output.json && echo $?))"
+       run: echo "::set-output name=leak_level::$(grep 'CRITICAL' /tmp/scan_output.json && echo $?)"
      - name: Pass or fail
        run: |
          if [[ ${{steps.leak_check.outputs.leak_level}} == 0 ]]; then exit 0; else exit 1; fi
