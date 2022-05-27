@@ -1,4 +1,7 @@
+[![GitHub Super-Linter](https://github.com/guinan34/TheTasks1-2-4/workflows/Lint%20Code%20Base/badge.svg)](https://github.com/marketplace/actions/super-linter)
+
 # First of all
+
 * Replace it with your own password and user.
 * I turned off the Gather_facts module for all tasks to save resources.
 ```
