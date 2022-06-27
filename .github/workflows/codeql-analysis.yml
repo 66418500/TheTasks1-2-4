@@ -15,12 +15,16 @@ jobs:
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@master
         with:
-          format: 'table'
           exit-code: '1'
           scan-type: 'fs'
           ignore-unfixed: true
-          severity: 'CRITICAL'
+          vuln-type: 'os,library'
+          format: 'template'
+          template: '@/contrib/sarif.tpl'
+          output: 'trivy-results.sarif'
+          severity: 'CRITICAL,HIGH'
 
-      - name: Group of log lines
-        run: |
-            echo "echo "
+      - name: Upload Trivy scan results to GitHub Security tab
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: 'trivy-results.sarif'
