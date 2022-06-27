@@ -19,5 +19,5 @@ jobs:
           security-checks: 'secret'
           exit-code: '1'
           ignore-unfixed: true
-          format: 'json'
+          format: 'github'
           severity: 'CRITICAL'
