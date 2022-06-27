@@ -15,11 +15,10 @@ jobs:
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@master
         with:
-          security-checks: 'secret'
           format: 'table'
           exit-code: '1'
           hide-progress: 'false'
-          scan-type: 'fs'
+          scan-type: 'secret'
           ignore-unfixed: true
           severity: 'CRITICAL'
 
