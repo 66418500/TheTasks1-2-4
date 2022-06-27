@@ -15,11 +15,11 @@ jobs:
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@master
         with:
+          format: 'table'
+          exit-code: '1'
           scan-type: 'fs'
           security-checks: 'secret'
-          exit-code: '1'
           ignore-unfixed: true
-          format: 'table'
           severity: 'CRITICAL'
 
       - name: Group of log lines
