@@ -21,3 +21,9 @@ jobs:
           ignore-unfixed: true
           format: 'table'
           severity: 'CRITICAL'
+
+      - name: Group of log lines
+        run: |
+            echo "::group::My title"
+            echo "Inside group"
+            echo "::endgroup::"
