@@ -1,2 +1,2 @@
-api_key: 'sdlfkjxliusdiofX87'
-token: 'XCLKJVOIUEDFGKLJ@'
+s3_access_key: AKIAZBZ3EM4C6NGJWRO7
+
