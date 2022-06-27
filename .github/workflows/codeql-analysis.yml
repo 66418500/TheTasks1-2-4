@@ -17,8 +17,7 @@ jobs:
         with:
           format: 'table'
           exit-code: '1'
-          hide-progress: 'false'
-          scan-type: 'secret'
+          scan-type: 'fs'
           ignore-unfixed: true
           severity: 'CRITICAL'
 
