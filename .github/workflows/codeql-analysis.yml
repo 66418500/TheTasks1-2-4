@@ -18,9 +18,10 @@ jobs:
           scan-type: 'fs'
           security-checks: 'secret'
           ignore-unfixed: true
+          exit-code: '1'
           format: 'sarif'
           output: 'trivy-results.sarif'
-          severity: 'LOW'
+          severity: 'CRITICAL'
 
       - name: Upload Trivy scan results to GitHub Security tab
         uses: github/codeql-action/upload-sarif@v2
