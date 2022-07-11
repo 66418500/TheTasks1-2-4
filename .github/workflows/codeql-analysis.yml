@@ -22,6 +22,7 @@ jobs:
           format: 'table'
           severity: 'CRITICAL'
           exit-code: '1'
+          security-checks: vuln,secret
           
       - name: Set selected color
         run: echo '::set-output name=SELECTED_COLOR::green'
