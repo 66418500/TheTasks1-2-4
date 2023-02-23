@@ -1,0 +1,20 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: kong-ingress-controller-monitor
+  namespace: monitoring
+  labels: 
+    level: system
+spec:
+  endpoints:
+  - port: kong-admin-api
+    relabelings:
+    - action: replace
+      targetLabel: namespace
+      replacement: zara
+  namespaceSelector:
+    matchNames:
+    - kong 
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: kong

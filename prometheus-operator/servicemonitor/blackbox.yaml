@@ -1,0 +1,15 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  labels:
+    level: system
+  name: blackbox-exporter
+  namespace: monitoring
+spec:
+  endpoints:
+  - interval: 30s
+    path: /metrics
+    port: blackbox-port
+  selector:
+    matchLabels:
+      app: blackbox

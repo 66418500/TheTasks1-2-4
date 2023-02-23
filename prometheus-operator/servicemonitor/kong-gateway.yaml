@@ -1,0 +1,23 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: kong-monitor
+  namespace: monitoring
+  labels: 
+    level: system
+spec:
+  relabelings:
+  # ** 必须要有一个 label 为 application，这里假设 k8s 有一个 label 为 app，
+  # 我们通过 relabel 的 replace 动作把它替换成了 application
+  - action: replace
+    sourceLabels:  [__meta_kubernetes_pod_label_app]
+    targetLabel: application
+  endpoints:
+  - port: admin-port
+  namespaceSelector:
+    matchNames:
+    - suitsupply
+    - tiffany
+  selector:
+    matchLabels:
+      backend: kong

@@ -1,0 +1,22 @@
+kind: Probe
+apiVersion: monitoring.coreos.com/v1
+metadata:
+  name: omnisaas-ssl-expiration
+  namespace: monitoring
+  labels:
+    level: system
+spec:
+  interval: 60s
+  jobName: omnisaas-ssl-expiration
+  module: http_2xx
+  prober:
+    url: blackbox-exporter.monitoring.svc.cluster.local:9115
+    path: /probe
+    scheme: http
+  targets:
+    staticConfig:
+      static:
+      - https://admin.wx.cn.burberry.com
+      - https://api.wx.cn.burberry.com
+      - https://staging-burberry.wiredcraft.cn
+      - https://admin-staging-burberry.wiredcraft.cn

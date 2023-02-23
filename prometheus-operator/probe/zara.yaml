@@ -1,0 +1,22 @@
+kind: Probe
+apiVersion: monitoring.coreos.com/v1
+metadata:
+  name: zara-ssl-expiration
+  namespace: monitoring
+  labels:
+    level: system
+spec:
+  jobName: zara-ssl-expiration
+  interval: 60s
+  module: http_2xx
+  prober:
+    url: blackbox-exporter.monitoring.svc.cluster.local:9115
+    path: /probe
+    scheme: http
+  targets:
+    staticConfig:
+      static:
+      - https://admin.wx.cn.burberry.com
+      - https://api.wx.cn.burberry.com
+      - https://staging-burberry.wiredcraft.cn
+      - https://admin-staging-burberry.wiredcraft.cn

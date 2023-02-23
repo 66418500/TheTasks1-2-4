@@ -1,0 +1,25 @@
+kind: Probe
+apiVersion: monitoring.coreos.com/v1
+metadata:
+  name: wiredcraft-ssl-expiration
+  namespace: monitoring
+  labels:
+    level: system
+spec:
+  interval: 60s
+  jobName: wiredcraft-ssl-expiration
+  module: http_2xx
+  prober:
+    url: blackbox-exporter.monitoring.svc.cluster.local:9115
+    path: /probe
+    scheme: http
+  targets:
+    staticConfig:
+      static:
+      - https://www.wiredcraft.com
+      - https://teleport.wiredcraft.cn
+      - https://registry.wiredcraft.cn
+      - https://ga.wiredcraft.cn
+      - https://wiredcraft.omnisaas.cn
+      - https://pipelines-us-omni.wiredcraft.net/login?next=%2F
+      - https://registry.wiredcraft.net

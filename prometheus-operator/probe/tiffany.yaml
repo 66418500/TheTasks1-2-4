@@ -1,0 +1,19 @@
+kind: Probe
+apiVersion: monitoring.coreos.com/v1
+metadata:
+  name: tiffany-ssl-expiration
+  namespace: monitoring
+  labels:
+    level: system
+spec:
+  jobName: tiffany-ssl-expiration
+  interval: 60s
+  module: http_2xx
+  prober:
+    url: blackbox-exporter.monitoring.svc.cluster.local:9115
+    path: /probe
+    scheme: http
+  targets:
+    staticConfig:
+      static:
+      - https://omnisaas.tiffany.cn

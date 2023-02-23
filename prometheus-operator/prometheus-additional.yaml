@@ -1,0 +1,29 @@
+  - job_name: "Burberry SSL Expiration"
+    metrics_path: /probe
+    params:
+      module: [http_2xx]  # Look for a HTTP 200 response.
+    static_configs:
+      - targets:
+        - https://www.wiredcraft.com
+        - https://teleport.wiredcraft.cn
+        - https://registry.wiredcraft.cn
+        - https://admin-staging-burberry.wiredcraft.cn
+        - https://staging-burberry.wiredcraft.cn
+        - https://ga.wiredcraft.cn
+        - https://omnisaas.tiffany.cn
+        - https://wiredcraft.omnisaas.cn
+        - https://pipelines-us-omni.wiredcraft.net/login?next=%2F
+        - https://registry.wiredcraft.net
+        - https://api.wx.cn.burberry.com
+        - https://www.cartier.cn
+        - https://ofs-val.cartier.cn
+        - https://admin.wx.cn.burberry.com
+        - https://data.worldbank.org
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+      - target_label: __address__
+        replacement: blackbox-exporter:9115
+
