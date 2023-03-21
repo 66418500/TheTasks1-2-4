@@ -1,0 +1,55 @@
+name: My Action
+on:
+  workflow_dispatch:
+    inputs:
+      customer:
+        type: choice
+        description: Choose your project.
+        required: true
+        options:
+          - "demo"
+          - "other"
+      environment:
+        type: choice
+        description: Choose your ENV.
+        required: true
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Use input values
+        run: |
+          # Use the value of customer and environment input fields
+          echo "The value of customer is: ${{ github.event.inputs.customer }}"
+          echo "The value of environment is: ${{ github.event.inputs.environment }}"
+      - name: Set input options
+        id: set-input-options
+        run: |
+          # Set the options for the environment input field based on the customer input field value
+          const customer = document.querySelector('select[name="input_customer"]');
+          const environment = document.querySelector('select[name="input_environment"]');
+          const demoOptions = [
+            { label: "-- Choose wisely --", value: "" },
+            { label: "staging", value: "staging" },
+          ];
+          const otherOptions = [
+            { label: "-- Choose wisely --", value: "" },
+            { label: "dev", value: "dev" },
+            { label: "qa", value: "qa" },
+            { label: "staging", value: "staging" },
+          ];
+          const setEnvironmentOptions = () => {
+            if (customer.value === "demo") {
+              environment.innerHTML = demoOptions
+                .map(({ label, value }) => `<option value="${value}">${label}</option>`)
+                .join("");
+            } else {
+              environment.innerHTML = otherOptions
+                .map(({ label, value }) => `<option value="${value}">${label}</option>`)
+                .join("");
+            }
+          };
+          customer.addEventListener("change", setEnvironmentOptions);
+          setEnvironmentOptions();

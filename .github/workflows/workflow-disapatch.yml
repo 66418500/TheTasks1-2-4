@@ -93,8 +93,10 @@ permissions:
    contents: read
 
 jobs:
-  apply:
+  deploy:
     runs-on: cn
+    env:
+      playbook: "deploy.yml"
     defaults:
       run:
         working-directory: devops/ansible
@@ -113,7 +115,7 @@ jobs:
         
       - name: test the variables
         run: |
-          echo ${{ input.customer }} ${{ input.environment }} ${{ input.component }} ${{ input.version }}
+          echo ${{ input.customer }} ${{ input.environment }} ${{ input.component }} ${{ input.version }} echo ${{ env.playbook }}
 
       # - name: Deploy components
       #   env:
