@@ -4,7 +4,7 @@ on:
     inputs:
       customer:
         type: choice
-        description: xxx.
+        description: Chose your project.
         required: true
         options:
           - "-- Choose wisely --"
@@ -18,7 +18,7 @@ on:
           - "lululemon"
       environment:
         type: choice
-        description: xxx.
+        description: Chose your ENV.
         required: true
         options:
           - "-- Choose wisely --"
@@ -27,7 +27,7 @@ on:
           - staging
       component:
         type: choice
-        description: xxx.
+        description: Chose your component.
         required: true
         options:
           - "-- Choose wisely --"
@@ -82,11 +82,11 @@ on:
           - wechat-connector
       version:
         type: string
-        description: xxx.
+        description: Type your version.
         required: true
       slack_mention:
         type: string
-        description: xxx.
+        description: Name of the mentioned user.
         required: false
 
 permissions:
