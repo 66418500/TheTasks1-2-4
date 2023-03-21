@@ -1,4 +1,4 @@
-name: Sync Prometheus Config to OmniSAAS
+name: Deploy OmniSAAS component to OmniSAAS
 on:
   workflow_dispatch:
     inputs:
@@ -80,11 +80,11 @@ on:
           - video-sync
           - wechat-auth-proxy
           - wechat-connector
-      version: master
+      version:
         type: string
         description: xxx.
         required: true
-      slack_mention: ""
+      slack_mention:
         type: string
         description: xxx.
         required: false
