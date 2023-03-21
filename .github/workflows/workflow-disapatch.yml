@@ -97,7 +97,7 @@ jobs:
     runs-on: cn
     defaults:
       run:
-        working-directory: services/prometheus-operator/ansible
+        working-directory: devops/ansible
     steps:
       - uses: actions/checkout@v3
       - uses: wiredcraft/github-actions/ansible/setup@master
@@ -110,15 +110,23 @@ jobs:
         with:
           method: kubeconfig
           kubeconfig: ${{ secrets.OMNISAAS_KUBECONFIG_NON_PROD }}
+        
+      - name: test the variables
+        run: |
+          echo ${{ input.customer }} ${{ input.environment }} ${{ input.component }} ${{ input.version }}
 
-      # - name: Render configs
+      # - name: Deploy components
       #   env:
       #     ANSIBLE_STDOUT_CALLBACK: yaml
       #     PY_COLORS: '1'
       #     ANSIBLE_FORCE_COLOR: '1'
       #   run: |
-      #     ansible-playbook render.yaml -i inventory.yaml  \
-      #       --limit ${{ inputs.project_name }}
+      #       ansible-playbook -i inventories/${{ input.customer }}/${{ input.environment }} ${{ playbook }} \
+      #       --vault-password-file /var/lib/pipelines/secure/omnisaas.key \
+      #       -u wcladmin -b \
+      #       -e "component_version=${{ input.version }}" \
+      #       -e "@inventories/${{ input.customer }}/${{ input.environment}}/../versions.yml" \
+      #       -e "component=${{ input.component }}"
 
       # - uses: Azure/k8s-deploy@v4
       #   with:
