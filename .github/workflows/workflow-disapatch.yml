@@ -1,0 +1,131 @@
+name: Sync Prometheus Config to OmniSAAS
+on:
+  workflow_dispatch:
+    inputs:
+      customer:
+        type: choice
+        description: xxx.
+        required: true
+        options:
+          - "-- Choose wisely --"
+          - "bulgari"
+          - "demo"
+          - "swire"
+          - "wiredcraft"
+          - "zara"
+          - "suitsupply"
+          - "tiffany"
+          - "lululemon"
+      environment:
+        type: choice
+        description: xxx.
+        required: true
+        options:
+          - "-- Choose wisely --"
+          - dev
+          - qa
+          - staging
+      component:
+        type: choice
+        description: xxx.
+        required: true
+        options:
+          - "-- Choose wisely --"
+          - admin-gateway
+          - admin-gateway-v15
+          - admin-gateway-v24
+          - admin-ui
+          - admin-ui-v2
+          - automation
+          - bulgari-wishlist-api
+          - cms
+          - contact
+          - dmp
+          - docs
+          - events
+          - events-organizer
+          - form
+          - gateway
+          - gateway-v15
+          - gateway-v24
+          - group-booking
+          - media
+          - notification
+          - suitsupply-notification
+          - oidc-auth-proxy
+          - oms
+          - oms-app
+          - "^ use for suitsupply, tiffany"
+          - oms-ecom-v2
+          - oms-event-v2
+          - payment-gw
+          - payment-gw-ecom
+          - payment-gw-event
+          - pcm-ecom
+          - pcm-event
+          - promotion
+          - qr
+          - static
+          - screen-uploader
+          - scrm
+          - search
+          - suitsupply-sfcc-connector
+          - tag
+          - tiffany-connector
+          - tiffany-cdp-connector
+          - tiffany-notification-report
+          - tiffany-ecom-bff
+          - tiffany-association
+          - zara-instore-screen
+          - video-sync
+          - wechat-auth-proxy
+          - wechat-connector
+      version: master
+        type: string
+        description: xxx.
+        required: true
+      slack_mention: ""
+        type: string
+        description: xxx.
+        required: false
+
+permissions:
+   contents: read
+
+jobs:
+  apply:
+    runs-on: cn
+    defaults:
+      run:
+        working-directory: services/prometheus-operator/ansible
+    steps:
+      - uses: actions/checkout@v3
+      - uses: wiredcraft/github-actions/ansible/setup@master
+
+      - name: setup kubectl
+        uses: azure/setup-kubectl@v3
+      
+      - name: Kubernetes set context
+        uses: Azure/k8s-set-context@v1
+        with:
+          method: kubeconfig
+          kubeconfig: ${{ secrets.OMNISAAS_KUBECONFIG_NON_PROD }}
+
+      # - name: Render configs
+      #   env:
+      #     ANSIBLE_STDOUT_CALLBACK: yaml
+      #     PY_COLORS: '1'
+      #     ANSIBLE_FORCE_COLOR: '1'
+      #   run: |
+      #     ansible-playbook render.yaml -i inventory.yaml  \
+      #       --limit ${{ inputs.project_name }}
+
+      # - uses: Azure/k8s-deploy@v4
+      #   with:
+      #     namespace: monitoring
+      #     manifests: |
+      #       output
+
+      # - name: Fix permissions
+      #   if: always()
+      #   run: sudo chown -R $(stat . -c %u:%g) output
