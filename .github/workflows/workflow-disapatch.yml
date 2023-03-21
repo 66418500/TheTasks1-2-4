@@ -115,7 +115,7 @@ jobs:
         
       - name: test the variables
         run: |
-          echo ${{ input.customer }} ${{ input.environment }} ${{ input.component }} ${{ input.version }} echo ${{ env.playbook }}
+          echo ${{ inputs.customer }} ${{ inputs.environment }} ${{ inputs.component }} ${{ inputs.version }} echo ${{ env.playbook }}
 
       # - name: Deploy components
       #   env:
